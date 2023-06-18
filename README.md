@@ -1,41 +1,124 @@
-## upm-template
-A template project for making UPM packages for Unity
+![CSCore Logo](http://fs1.directupload.net/images/150528/h8n8qwyc.png)
 
-## How to use
 
-First use this repository as the base of your UPM project repository by forking it.
+# CSCore - .NET Audio Library #
 
-### __Project Structure__ 
-Let's say the name of your package directory is `ABC`. Your UPM project directory will usually be `Packages/ABC` or `Assets/ABC` (let's assume it's `Packages/ABC` for this guide). A sample directory is included in the repo.
+[![Github-Release](https://img.shields.io/github/release/filoe/cscore.svg)](https://github.com/filoe/cscore/releases)
+[![NuGet-Release](https://img.shields.io/nuget/v/CSCore.svg)](https://www.nuget.org/packages/CSCore/)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=N2ZU8PSBFEXPJ)
+[![Chat on gitter https://gitter.im/cscorelib/Lobby](https://badges.gitter.im/cscorelib/Lobby.svg)](https://gitter.im/cscorelib/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Inside which you'd have your `package.json`, `CHANGELOG.md`, `LICENSE`, `README.md`.
+[![NuGet-Release](https://img.shields.io/nuget/vpre/CSCore.Ffmpeg.svg?label=%22nuget%20CScore.Ffmpeg%22)](https://www.nuget.org/packages/CSCore.Ffmpeg/)
 
-To know more about `package.json` (called the UPM Manifest) go [here](https://docs.unity3d.com/Manual/upm-manifestPkg.html)
+CSCore is a free .NET audio library which is completely written in C#. Although it is still a rather young project, it offers tons of features like playing or capturing audio, en- or decoding many different codecs, effects and much more!
 
-### __Configure Github Actions (only works when hosting on github.com)__
-Go to `.github/workflows/ci.yml` and change the value of `XYZ` to `Packages/ABC`. 
+CSCore is based on a very extensible architecture which allows you to make it fit to your needs without any major effort. You can build music players, voice chats, audio recorders and so on!
+Supported platforms: Windows only, linux and mac experimental (see https://github.com/filoe/cscore/tree/netstandard).
 
-Every time you commit to `master`, this YML file is used to release your UPM package and automatically use a separate upm branch for releases as well as autogenerate tag for release. If you see the upm branch commits, you'll notice that your project directory is the root instead of the Unity project directory. Github Actions is used to automate this bit.
+For more details, take a look at the source or the [online documentation](http://filoe.github.io/cscore/sharpDox/).
 
-### __Configure Semantic Release__
-Semantic releases is used to automate changelog updates as well as incrementing the version field inside `package.json` (the UPM Manifest). 
+Feel free to download or clone the source code:
 
-Go to `.releaserc.json` do make the following changes:
+    https://github.com/filoe/cscore.git
 
-* `XYZ1` to `Packages/ABC`
-* `XYZ2` to `Packages/ABC/package.json`
-* `XYZ3` to `Packages/ABC/CHANGELOG.md`
+You may prefer to install the [CSCore nuget package](https://www.nuget.org/packages/CSCore/):
 
-When using `git commit`, follow the [Angular Standard](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit)
+    Install-Package CSCore
+    
+For **FFmpeg** support, install the [CSCore.Ffmpeg nuget package](https://www.nuget.org/packages/CSCore.Ffmpeg/)
 
-### __Publishing to package registries__
-Use `npm publish` inside `Packages/ABC` or check out [OpenUPM](https://openupm.com/docs/#how-it-works)  
+    Install-Package CSCore.Ffmpeg -Pre
+    
+### Why CSCore? ###
+ - **Highly optimized PERFORMANCE** through usage of CLI instructions
+ - **Designed for newbies and professionals** 
+ - **Tons of features**
+ - **Fast support on [github](https://github.com/filoe/cscore) and [stackoverflow](http://stackoverflow.com/questions/tagged/cscore)** 
+ - **High code coverage through unit tests** 
+ - **Licensed under the MS-PL** (does not include the [CSCore.Ffmpeg](https://github.com/filoe/cscore/tree/master/CSCore.Ffmpeg) project which is licensed under the LGPL)
 
-## Further Resources
-[Favo Yang's Medium Articles](https://medium.com/@favoyang)  
-[OpenUPM Docs](https://openupm.com/docs/)  
-[Having a Docker Container As Your Private NPM Registry — The Easy Way by Sibeesh Venu](https://medium.com/better-programming/having-a-docker-container-as-your-private-npm-registry-the-easy-way-68159fa94cc4)  
+### Supported Features ###
 
-## Contact
-[@github](https://www.github.com/adrenak)  
-[@www](http://www.vatsalambastha.com)
+Currently the following features are implemented:
+
+- **Realtime audio processing**
+  - Process audio data in realtime
+  - Apply any processors in any order you want in realtime
+  - Create custom processors (e.g. effects, analyzes, decoders,...)
+- **Codecs** *1
+  - MP3
+  - WAVE (PCM, IeeeFloat, GSM, ADPCM,...)
+  - FLAC
+  - AAC
+  - AC3
+  - WMA
+  - Raw data
+  - OGG-Vorbis (through NVorbis)
+  - FFmpeg (lots of additional formats, see [CSCore.Ffmpeg](https://github.com/filoe/cscore/tree/master/CSCore.Ffmpeg))
+- **FFmpeg support**
+  - Supported through [CSCore.Ffmpeg](https://github.com/filoe/cscore/tree/master/CSCore.Ffmpeg))
+- **Speaker Output**
+  - WaveOut
+  - DirectSoundOut (realtime streaming)
+  - WASAPI (loop- and event-callback + exclusive mode available)
+  - XAudio2
+- **Recording**
+  - WaveIn
+  - WASAPI (loop- and event-callback + exclusive mode available)
+  - WASAPI loopback capture (capture output from soundcard)
+- **DSP Algorithms**
+  - Fastfouriertransform (FFT)
+  - Effects (Echo, Compressor, Reverb, Chorus, Gargle, Flanger,...)
+  - Resampler
+  - Channel-mixing using custom channel-matrices
+  - Generic Equalizer
+  - ...
+- **XAudio2 support**
+  - XAudio2.7 and XAudio2.8 support
+  - 3D Audio support (see X3DAudio sample)
+  - Streaming source voice implementation allowing
+    the client to stream any codec, custom effect,... to XAudio2
+  - Optimized for games
+- **Mediafoundation encoding and decoding**
+- **DirectX Media Objects Wrapper**
+- **CoreAudioAPI Wrapper**
+  - WASAPI
+  - Windows Multimedia Devices
+  - Windows Audio Session
+  - Endpoint Volume,...
+- **Multi-Channel support**
+- **Flexible**
+  - Configure and customize any parts of CSCore
+  - Use low latency values for realtime performance, high latency values for stability
+  - Adjust the audio quality
+  - Configure custom channel matrices
+  - Create custom effects
+  - ...
+  - Or simply: **Make CSCore fit your needs!**
+- **Tags** (ID3v1, ID3v2, FLAC)
+- **Sample Winforms Visualizations**
+- **Optimized performance though the usage of CLI instructions provided by a custom post compiler**
+
+**\*1** Some Codecs are only available on certain platforms. For more details, see [Codeplex-Page](http://cscore.codeplex.com/).
+
+Some projects using already using cscore:
+- [Dopamine](http://www.digimezzo.com/software/dopamine/): _An music player which tries to keep listening to music clean and simple._
+- [Hurricane](https://github.com/Alkalinee/Hurricane): _Is a powerful music player written in C# based on [CSCore sound library](https://github.com/filoe/cscore)._
+- [Sharpex2D](https://github.com/ThuCommix/Sharpex2D): A game engine which _allows you to create beautiful 2D games under .NET for Windows and Mono compatible systems_
+- [Turnt-Ninja](https://github.com/opcon/turnt-ninja): A beat-fighting-ninja-like-get-turnt rhythm game inspired by the wonderful Super Hexagon by Terry Cavanagh.
+- [HTLED](https://www.youtube.com/watch?v=tbrKepBgH3M): A audio visualization displayed on a selfmade 32x16 LED matrix.
+- ...
+
+#### Samples: ####
+
+["CSCore - Visualization"](Samples/WinformsVisualization) Sample:
+
+![VIS_SAMPLE](http://download-codeplex.sec.s-msft.com/Download?ProjectName=cscore&DownloadId=970569)
+
+["CSCoreWaveform"](Samples/CSCoreWaveform) Sample:
+
+![WAVFRM_SAMPLE](http://fs5.directupload.net/images/160229/adjvd9u9.png)
+
+For more samples see [Samples](Samples/)
+
+#### As long as this document is in development, see [Codeplex](http://cscore.codeplex.com/) for more details.  ####
