@@ -1,5 +1,5 @@
 {
-	"name": "com.icosa.cscore",
+	"name": "com.filoe.cscore",
 	"version": "1.2.1-2",
 	"displayName": "CSCore",
 	"description": "An advanced audio library, written in C#. (Repackaged as Unity UPM package)",

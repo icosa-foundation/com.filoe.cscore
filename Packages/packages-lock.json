@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "com.icosa.cscore": {
-      "version": "file:com.icosa.cscore",
+    "com.filoe.cscore": {
+      "version": "file:com.filoe.cscore",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
